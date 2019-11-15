@@ -9,16 +9,23 @@ import java.util.Scanner;
 
 public class Swing {
 
+    private List<List<Double>> swingData;
     private static final String fileName = "latestSwing.csv";
     public static void main(String[] args) {
 
         Swing swing = new Swing();
-        List<List<Double>> swingData = swing.readFile(fileName);
-        if(swingData.size()!=0)
-            swing.userInterface(swingData);
-
+        swing.userInterface();
 
     }
+
+     List<List<Double>> getSwingData() {
+        return swingData;
+    }
+
+    public Swing() {
+        swingData = readFile(fileName);
+    }
+
     private List<List<Double>>readFile(String fileName){
 
         /** Since we need to send entire columns to our function we create a List of List where outerList.get(0) will return the 1st column
@@ -48,7 +55,7 @@ public class Swing {
         }
         return data;
     }
-    private void userInterface(List<List<Double>> swingData){
+     void userInterface(){
 
         Scanner sc = new Scanner(System.in);
         SwingFunctions swingFunctions = new SwingFunctions();
@@ -127,12 +134,12 @@ public class Swing {
 
                 if (result == -1)
                     System.out.println("Sorry values you entered could not be found.\n");
-                else
+                else if(choice!=4&& result!=-1)
                     System.out.println("Index = " + result);
 
                 System.out.println();
                 System.out.println("Select 1 to continue and 2 to exit");
-                end = sc.nextInt();
+                 end = sc.nextInt();
             }
 
             catch (InvalidDataRangeException e){
